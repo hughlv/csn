@@ -2,14 +2,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import cheerio from 'cheerio';
 import fs from 'fs';
-
-type Data = {
-  name: string
-}
+import { Product } from './types';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Product[]>
 ) {
 
   const url = "https://ai-bot.cn"; // 目标网址
@@ -17,13 +14,13 @@ export default async function handler(
   const response = await fetch(url);
   const html = await response.text();
   const $ = cheerio.load(html);
-  let data = [];
+  let data: Product[] = [];
   $('.url-body').each((index, element) => {
     const title = $(element).find('.url-info strong').text();
     const description = $(element).find('.url-info > p').text();
     const link = $(element).find('a').attr('data-url');
     const image = $(element).find('.url-img > img').attr('data-src');
-    if (data.some(obj => obj.title === title)) {
+    if (data.some(obj => obj['title'] === title)) {
       console.log('Duplicate title:', title, 'skipped');
     } else {
       data.push({title, description, link, image});

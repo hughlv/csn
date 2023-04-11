@@ -2,14 +2,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import cheerio from 'cheerio';
 import fs from 'fs';
+import { Product } from './types';
 
-type Data = {
-  name: string
-}
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Product[]>
 ) {
 
   const url = "https://www.producthunt.com/topics/artificial-intelligence?order=most_followed"; // 目标网址
@@ -18,7 +16,7 @@ export default async function handler(
   const html = await response.text();
   console.log(html);
   const $ = cheerio.load(html);
-  let data = [];
+  let data: Product[] = [];
   $('ul').each((index, element) => {
     console.log(element);
     const title = $(element).find('div[class=noOfLines-1]').text();

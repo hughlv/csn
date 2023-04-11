@@ -2,14 +2,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import cheerio from 'cheerio';
 import fs from 'fs';
-
-type Data = {
-  name: string
-}
+import { Product } from './types';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Product[]>
 ) {
 
   const url = "https://www.futuretools.io/"; // 目标网址
@@ -17,7 +14,7 @@ export default async function handler(
   const html = await response.text();
 
   const $ = cheerio.load(html);
-  let data = [];
+  let data: Product[] = [];
   $('.tool-item-columns---new').each((index, element) => {
     const title = $(element).find('.tool-item-link---new').text();
     const description = $(element).find('.tool-item-description-box---new').text();
