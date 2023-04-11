@@ -13,7 +13,7 @@ export default function Index() {
 
     // When the countdown reaches 0, redirect to /galleries
     if (countdown === 0) {
-      router.push('/galleries');
+      router.push('/aibot');
     }
 
     // Clean up the timer when the component unmounts
@@ -22,7 +22,7 @@ export default function Index() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-4">
-      <p>Redirecting to /galleries in {countdown} seconds...</p>
+      <p>Redirecting to /aibot in {countdown} seconds...</p>
     </main>
   );
 }
