@@ -17,7 +17,7 @@ export default function Galleries() {
       <Grid container spacing={2}>
         {data.map(item => (
           <Grid item xs={12} sm={12} md={6} lg={4} key={item.title}>
-            <Card className="flex items-center p-2 h-full">
+            <Card className="flex items-center p-2 h-full dark:bg-gray-900 dark:text-gray-400">
               <Image
                 height="96"
                 width="96"
@@ -28,7 +28,7 @@ export default function Galleries() {
               <CardContent className="flex flex-col p-4 w-full h-full items-start">
                 <div className="text-lg font-bold">{item.title}</div>
                 <div className="py-4">{item.description}</div>
-                <div className="w-full text-left">
+                <div className="w-full">
                   <Link href={item.link} underline="none">
                     访问产品网站
                   </Link>
